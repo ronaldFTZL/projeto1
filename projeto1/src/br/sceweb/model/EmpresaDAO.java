@@ -3,14 +3,22 @@ package br.sceweb.model;
 import java.sql.SQLException;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
+
+import br.sceweb.servico.ConfiguraDB;
 import br.sceweb.servico.FabricaDeConexoes;
 
 public class EmpresaDAO {
-
+	
+	ConfiguraDB configuraDB;
+	
+	public EmpresaDAO (ConfiguraDB db){
+		this.configuraDB = db;
+	}
+	
 	public int adiciona(Empresa empresa){
 		PreparedStatement ps;
 		int codigoRetorno=0;
-		try (Connection conn = new FabricaDeConexoes().getConnection()){
+		try (Connection conn = new FabricaDeConexoes(configuraDB).getConnection()){
 		ps = (PreparedStatement) conn.prepareStatement(
 		"insert into empresa (cnpj, nomeDaEmpresa, nomeFantasia, endereco, telefone) values(?,?,?,?,?)");
 			ps.setString(1,empresa.getCnpj());
