@@ -1,7 +1,13 @@
 package br.sceweb.model;
 
 import java.util.InputMismatchException;
-
+/**
+ * Esta classe registra as informações das empresas que estao autorizadas
+ * a oferecer estagio para alunos
+ * @author professor
+ * @version 1.0
+ *
+ */
 public class Empresa {
 	String cnpj;
 	String nomeDaEmpresa;

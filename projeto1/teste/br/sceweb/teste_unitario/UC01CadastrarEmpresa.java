@@ -20,6 +20,7 @@ public class UC01CadastrarEmpresa {
 	static EmpresaDAO empresaDAO;
 	static Empresa empresa;
 	static ConfiguraDB configuraDB;
+	static ConfiguraDB configuraDB1;
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		String url = "jdbc:mysql://localhost/sceweb";
@@ -43,6 +44,7 @@ public class UC01CadastrarEmpresa {
 	 */
 	@Test
 	public void CT01UC01FBCadastra_com_sucesso() {
+		String url = "jdbc:mysql://localhost/sceweb";
 		assertEquals(1,empresaDAO.adiciona(empresa));
 	}
 	
@@ -54,6 +56,23 @@ public class UC01CadastrarEmpresa {
 	public void CT03UC01FBCadastra_cnpj_ja_cadastrado() {
 		empresaDAO.adiciona(empresa);
 		assertEquals(0,empresaDAO.adiciona(empresa));
+	}
+	@Test
+	public void CT04UC01FBCadastra_db_invalido() {
+		String url = "jdbc:mysql://localhost/sceweb1";
+		String driver = "com.mysql.jdbc.Driver";
+		String usuario = "root";
+		String senha = "";
+		configuraDB1 = new ConfiguraDB(url, driver,usuario,senha);
+		empresaDAO = new EmpresaDAO(configuraDB);
+		empresa = new Empresa();
+		empresa.setNomeDaEmpresa("empresa x");
+		empresa.setCnpj("89424232000180");
+		empresa.setNomeFantasia("empresa x");
+		empresa.setEndereco("rua taquari");
+		empresa.setTelefone("2222");
+		empresaDAO.adiciona(empresa);
+		
 	}
 	@After
 	public void tearDownAfterClass() throws Exception {

@@ -49,7 +49,7 @@ public class EmpresaDAO {
 			codigoretorno = ps.executeUpdate();
 		}
 		catch (SQLException e){
-			throw new RuntimeException(e);
+			System.out.println("erro = " + e.getMessage());
 		}
 		return codigoretorno;
 	}

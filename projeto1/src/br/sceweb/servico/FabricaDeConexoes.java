@@ -34,6 +34,7 @@ public class FabricaDeConexoes {
 			throw new RuntimeException(e);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
+			
 		}
 	}
 }
