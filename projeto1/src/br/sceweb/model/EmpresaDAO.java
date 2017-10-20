@@ -43,7 +43,7 @@ public class EmpresaDAO {
 	public int exclui (String cnpj) {
 		java.sql.PreparedStatement ps;
 		int codigoretorno = 0;
-		try (Connection conn = new FabricaDeConexoes().getConnection()) {
+		try (Connection conn = new FabricaDeConexoes(configuraDB).getConnection()) {
 			ps= conn.prepareStatement ("delete from empresa where cnpj = ?");
 			ps.setString(1, cnpj);
 			codigoretorno = ps.executeUpdate();
