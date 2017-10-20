@@ -7,6 +7,12 @@ import com.mysql.jdbc.PreparedStatement;
 import br.sceweb.servico.ConfiguraDB;
 import br.sceweb.servico.FabricaDeConexoes;
 
+/**
+ * Esta classe registra as informações de empresas que podem oferecer estagio para alunos
+ * @author Lab103
+ * @version 1
+ *
+ */
 public class EmpresaDAO {
 	
 	ConfiguraDB configuraDB;
@@ -49,7 +55,7 @@ public class EmpresaDAO {
 			codigoretorno = ps.executeUpdate();
 		}
 		catch (SQLException e){
-			System.out.println("erro = " + e.getMessage());
+			System.out.println("erro metodo excluir = " + e.getMessage());
 		}
 		return codigoretorno;
 	}

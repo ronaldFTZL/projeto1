@@ -6,7 +6,11 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
+
+import com.mysql.jdbc.exceptions.MySQLSyntaxErrorException;
 
 import br.sceweb.model.Empresa;
 import br.sceweb.model.EmpresaDAO;
@@ -50,28 +54,29 @@ public class UC01CadastrarEmpresa {
 	
 	@Test
 	public void CT02UC01FBCadastra_cnpj_invalido() {
+		empresaDAO = new EmpresaDAO(configuraDB);
 		assertEquals("CNPJ invalido.",empresa.setCnpj("89424"));
 	}
 	@Test
 	public void CT03UC01FBCadastra_cnpj_ja_cadastrado() {
+		empresaDAO = new EmpresaDAO(configuraDB);
 		empresaDAO.adiciona(empresa);
 		assertEquals(0,empresaDAO.adiciona(empresa));
+		
 	}
-	@Test
+	@Rule
+    public ExpectedException thrown = ExpectedException.none();
+	@Test 
 	public void CT04UC01FBCadastra_db_invalido() {
+		
+		thrown.expect(RuntimeException.class);
+		thrown.expectMessage("Erro de SQL = Unknown database 'sceweb1'");
 		String url = "jdbc:mysql://localhost/sceweb1";
 		String driver = "com.mysql.jdbc.Driver";
 		String usuario = "root";
 		String senha = "alunofatec";
 		configuraDB1 = new ConfiguraDB(url, driver,usuario,senha);
-		empresaDAO = new EmpresaDAO(configuraDB);
-		empresa = new Empresa();
-		empresa.setNomeDaEmpresa("empresa x");
-		empresa.setCnpj("89424232000180");
-		empresa.setNomeFantasia("empresa x");
-		empresa.setEndereco("rua taquari");
-		empresa.setTelefone("2222");
-		empresaDAO.adiciona(empresa);
+		empresaDAO = new EmpresaDAO(configuraDB1);
 		
 	}
 	@After

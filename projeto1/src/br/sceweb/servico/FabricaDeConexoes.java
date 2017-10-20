@@ -25,13 +25,14 @@ public class FabricaDeConexoes {
 	}
 
 	public Connection getConnection() {
+		String msg;
 		try {
 			Class.forName(driver);
 			return (Connection) DriverManager.getConnection(url, usuario, senha);
 		} catch (CommunicationsException e) {
 			throw new RuntimeException(e);
 		} catch (SQLException e) {
-			throw new RuntimeException(e);
+			throw new RuntimeException("Erro de SQL = " + e.getMessage());
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 			
