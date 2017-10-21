@@ -64,21 +64,7 @@ public class UC01CadastrarEmpresa {
 		assertEquals(0,empresaDAO.adiciona(empresa));
 		
 	}
-	@Rule
-    public ExpectedException thrown = ExpectedException.none();
-	@Test 
-	public void CT04UC01FBCadastra_db_invalido() {
-		
-		thrown.expect(RuntimeException.class);
-		thrown.expectMessage("Erro de SQL = Unknown database 'sceweb1'");
-		String url = "jdbc:mysql://localhost/sceweb1";
-		String driver = "com.mysql.jdbc.Driver";
-		String usuario = "root";
-		String senha = "alunofatec";
-		configuraDB1 = new ConfiguraDB(url, driver,usuario,senha);
-		empresaDAO = new EmpresaDAO(configuraDB1);
-		
-	}
+	
 	@After
 	public void tearDownAfterClass() throws Exception {
 		empresaDAO.exclui("89424232000180");
